@@ -13,7 +13,8 @@ Windows 環境で、OS エディションにより Docker をインストール�
     - [Dockerfile](https://hamasyou-dhw.github.io/webpro/201904/Dockerfile)
     - [docker-compose.yml](https://hamasyou-dhw.github.io/webpro/201904/docker-compose.yml)
 4. 次のコマンドを入力し、演習環境を起動する
-    ```
+
+    ```console
     $ cd webpro
     $ docker-compose up
     ```
