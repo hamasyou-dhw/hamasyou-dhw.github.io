@@ -440,7 +440,7 @@ pre[class*="language-"] {
 <h1 id="toc_0">2019年 Webプログラミング演習Ⅲ&amp;Ⅳ</h1>
 
 <ul>
-<li>更新: 2019/05/14  12:40</li>
+<li>更新: 2019/05/28</li>
 </ul>
 
 <h2 id="toc_1">演習環境</h2>
@@ -461,8 +461,9 @@ Windows 環境では、<a href="https://docs.docker.com/install/#desktop">Docker
 </ul></li>
 <li><p>次のコマンドを入力し、演習環境を起動する</p>
 
-<div><pre><code class="language-console">$ cd webpro
-$ docker-compose up</code></pre></div></li>
+<div><pre><code class="language-console">$ cd
+$ cd webpro
+$ docker-compose up -d</code></pre></div></li>
 <li><p>ブラウザで<a href="http://localhost:8080/">http://localhost:8080/</a>にアクセスし起動を確認する。(Docker Toolbox で Docker をインストールしている場合は、<a href="http://192.168.99.100:8080">http://192.168.99.100:8080</a>にアクセスする)</p></li>
 </ol>
 
@@ -517,6 +518,117 @@ $ docker-compose up</code></pre></div></li>
 <ul>
 <li><a href="https://hamasyou-dhw.github.io/webpro/201904/work.zip">work.zip</a></li>
 </ul>
+
+<h2 id="toc_5">5/28(火) 演習</h2>
+
+<p>データベースを利用します。データベースは演習環境に組み込まれている MySQL を使用します。</p>
+
+<h3 id="toc_6">起動方法</h3>
+
+<p>演習環境の構築方法に従って、演習環境を起動しておいてください。
+起動したら、サーバにログインします。</p>
+
+<div><pre><code class="language-console">$ docker container ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                NAMES
+8d0a506d2706        webpro_app          &quot;docker-php-entrypoi…&quot;   10 seconds ago      Up 9 seconds        0.0.0.0:8080-&gt;80/tcp                 webpro_app_1
+eeb1a9e328e1        mysql:5.7           &quot;docker-entrypoint.s…&quot;   11 seconds ago      Up 10 seconds       33060/tcp, 0.0.0.0:43306-&gt;3306/tcp   webpro_db_1
+
+$ docker container exec -it 8d0a506d2706 bash
+root@8d0a506d2706:/var/www/html# mysql -u root -h db
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.25 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+MySQL [(none)]&gt;</code></pre></div>
+
+<p>これで MySQL に接続できます。</p>
+
+<h2 id="toc_7">データベースを作成する</h2>
+
+<div><pre><code class="language-console">MySQL [(none)]&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.02 sec)
+
+MySQL [(none)]&gt; create database webprodb default charset utf8;
+Query OK, 1 row affected (0.01 sec)
+
+MySQL [(none)]&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| webprodb           |
++--------------------+
+5 rows in set (0.02 sec)
+
+MySQL [(none)]&gt; use webprodb;
+Database changed</code></pre></div>
+
+<h2 id="toc_8">テーブルを作成する</h2>
+
+<div><pre><code class="language-console">MySQL [webprodb]&gt; show tables;
+Empty set (0.01 sec)
+
+MySQL [webprodb]&gt; create table students (code CHAR(8) NOT NULL, name VARCHAR(255) NOT NULL, grade INT NOT NULL);
+Query OK, 0 rows affected (0.03 sec)
+
+MySQL [webprodb]&gt; show tables;
++--------------------+
+| Tables_in_webprodb |
++--------------------+
+| students           |
++--------------------+
+1 row in set (0.01 sec)</code></pre></div>
+
+<h2 id="toc_9">データを挿入する</h2>
+
+<div><pre><code class="language-console">MySQL [webprodb]&gt; insert into students (code, name, grade) values (&quot;A01DC001&quot;, &quot;Syougo Hamada&quot;, 3);</code></pre></div>
+
+<h2 id="toc_10">データを表示する（選択する）</h2>
+
+<div><pre><code class="language-console">MySQL [webprodb]&gt; select * from students;
++----------+---------------+-------+
+| code     | name          | grade |
++----------+---------------+-------+
+| A01DC001 | Syougo Hamada |     3 |
++----------+---------------+-------+
+1 row in set (0.00 sec)</code></pre></div>
+
+<h2 id="toc_11">データを更新する</h2>
+
+<div><pre><code class="language-console">MySQL [webprodb]&gt; update students set name = &quot;Shogo Hamada&quot; where code = &quot;A01DC001&quot;;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MySQL [webprodb]&gt; select * from students;
++----------+--------------+-------+
+| code     | name         | grade |
++----------+--------------+-------+
+| A01DC001 | Shogo Hamada |     3 |
++----------+--------------+-------+
+1 row in set (0.00 sec)</code></pre></div>
+
+<h2 id="toc_12">データを削除する</h2>
+
+<div><pre><code class="language-console">MySQL [webprodb]&gt; delete from students where code = &quot;A01DC001&quot;;
+Query OK, 1 row affected (0.00 sec)
+
+MySQL [webprodb]&gt; select * from students;
+Empty set (0.00 sec)</code></pre></div>
 
 
 
