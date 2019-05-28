@@ -467,7 +467,11 @@ $ docker-compose up -d</code></pre></div></li>
 <li><p>ブラウザで<a href="http://localhost:8080/">http://localhost:8080/</a>にアクセスし起動を確認する。(Docker Toolbox で Docker をインストールしている場合は、<a href="http://192.168.99.100:8080">http://192.168.99.100:8080</a>にアクセスする)</p></li>
 </ol>
 
-<h2 id="toc_2">5/7(火) 演習</h2>
+<h4 id="toc_2">演習環境を停止する</h4>
+
+<div><pre><code class="language-console">$ docker-compose down</code></pre></div>
+
+<h2 id="toc_3">5/7(火) 演習</h2>
 
 <p>ECサイトを作りながら、順次、設計を更新していく演習を行う。</p>
 
@@ -477,7 +481,7 @@ $ docker-compose up -d</code></pre></div></li>
 <li>データベースをつかってみる</li>
 </ol>
 
-<h3 id="toc_3">ECサイトを作成する</h3>
+<h3 id="toc_4">ECサイトを作成する</h3>
 
 <p>まずは、既存の知識で ECサイトを作ってみます。
 次の機能をもつWebアプリケーションを作成しましょう。</p>
@@ -513,17 +517,17 @@ $ docker-compose up -d</code></pre></div></li>
 <li>サイズ (S/M/L)</li>
 </ul>
 
-<h3 id="toc_4">サンプルコード</h3>
+<h3 id="toc_5">サンプルコード</h3>
 
 <ul>
 <li><a href="https://hamasyou-dhw.github.io/webpro/201904/work.zip">work.zip</a></li>
 </ul>
 
-<h2 id="toc_5">5/28(火) 演習</h2>
+<h2 id="toc_6">5/28(火) 演習</h2>
 
 <p>データベースを利用します。データベースは演習環境に組み込まれている MySQL を使用します。</p>
 
-<h3 id="toc_6">起動方法</h3>
+<h3 id="toc_7">起動方法</h3>
 
 <p>演習環境の構築方法に従って、演習環境を起動しておいてください。
 起動したら、サーバにログインします。</p>
@@ -547,7 +551,7 @@ MySQL [(none)]&gt;</code></pre></div>
 
 <p>これで MySQL に接続できます。</p>
 
-<h2 id="toc_7">データベースを作成する</h2>
+<h2 id="toc_8">データベースを作成する</h2>
 
 <div><pre><code class="language-console">MySQL [(none)]&gt; show databases;
 +--------------------+
@@ -578,7 +582,7 @@ MySQL [(none)]&gt; show databases;
 MySQL [(none)]&gt; use webprodb;
 Database changed</code></pre></div>
 
-<h2 id="toc_8">テーブルを作成する</h2>
+<h2 id="toc_9">テーブルを作成する</h2>
 
 <div><pre><code class="language-console">MySQL [webprodb]&gt; show tables;
 Empty set (0.01 sec)
@@ -594,11 +598,11 @@ MySQL [webprodb]&gt; show tables;
 +--------------------+
 1 row in set (0.01 sec)</code></pre></div>
 
-<h2 id="toc_9">データを挿入する</h2>
+<h2 id="toc_10">データを挿入する</h2>
 
 <div><pre><code class="language-console">MySQL [webprodb]&gt; insert into students (code, name, grade) values (&quot;A01DC001&quot;, &quot;Syougo Hamada&quot;, 3);</code></pre></div>
 
-<h2 id="toc_10">データを表示する（選択する）</h2>
+<h2 id="toc_11">データを表示する（選択する）</h2>
 
 <div><pre><code class="language-console">MySQL [webprodb]&gt; select * from students;
 +----------+---------------+-------+
@@ -608,7 +612,7 @@ MySQL [webprodb]&gt; show tables;
 +----------+---------------+-------+
 1 row in set (0.00 sec)</code></pre></div>
 
-<h2 id="toc_11">データを更新する</h2>
+<h2 id="toc_12">データを更新する</h2>
 
 <div><pre><code class="language-console">MySQL [webprodb]&gt; update students set name = &quot;Shogo Hamada&quot; where code = &quot;A01DC001&quot;;
 Query OK, 1 row affected (0.00 sec)
@@ -622,7 +626,7 @@ MySQL [webprodb]&gt; select * from students;
 +----------+--------------+-------+
 1 row in set (0.00 sec)</code></pre></div>
 
-<h2 id="toc_12">データを削除する</h2>
+<h2 id="toc_13">データを削除する</h2>
 
 <div><pre><code class="language-console">MySQL [webprodb]&gt; delete from students where code = &quot;A01DC001&quot;;
 Query OK, 1 row affected (0.00 sec)
