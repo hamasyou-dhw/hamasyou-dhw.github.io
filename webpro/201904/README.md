@@ -201,3 +201,14 @@ docker-compose up -d
 ```
 
 [http://localhost:8080/test](http://localhost:8080/test)
+
+### Node 環境（サーバー編）
+
+- server.js
+- public/index.html (vue.js)
+
+### Node 環境（開発環境編）
+
+- webpack
+- vue
+- docker で container に入って、npx webpack
